@@ -44,7 +44,7 @@ class MasterViewController: UIViewController {
         button.setTitle("Green", for: .normal)
         button.backgroundColor = .darkGray
         button.translatesAutoresizingMaskIntoConstraints = false
-//        button.addTarget(self, action: #selector(goToSecondVC1), for: .touchUpInside)
+        button.addTarget(self, action: #selector(goBackWithNotification), for: .touchUpInside)
         return button
     }()
     
@@ -80,6 +80,11 @@ class MasterViewController: UIViewController {
     
     @objc func goBackWithDelegate() {
         delegate?.backgroundColorChange(color: .blue)
+        dismiss(animated: true)
+    }
+    
+    @objc func goBackWithNotification() {
+        NotificationCenter.default.post(name: Notification.Name(rawValue: backgroundColorNotificationKey), object: nil)
         dismiss(animated: true)
     }
     

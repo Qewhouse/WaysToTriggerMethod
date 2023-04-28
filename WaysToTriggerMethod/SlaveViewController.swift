@@ -7,12 +7,21 @@
 
 import UIKit
 
+let backgroundColorNotificationKey = "key"
+
 class SlaveViewController: UIViewController {
+    
+    let greenColor = Notification.Name(rawValue: backgroundColorNotificationKey)
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setLayout()
         setConstraints()
+        createObserver()
     }
     
     lazy var chooseColorButton: UIButton = {
@@ -26,6 +35,14 @@ class SlaveViewController: UIViewController {
         button.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
         return button
     }()
+    
+    func createObserver() {
+        NotificationCenter.default.addObserver(self, selector: #selector(SlaveViewController.changeBackgroundColor(notification:)), name: greenColor, object: nil)
+    }
+    
+    @objc func changeBackgroundColor(notification: NSNotification) {
+        view.backgroundColor = .green
+    }
     
     @objc func buttonPressed(_ sender: UIButton) {
         let vc = MasterViewController()
