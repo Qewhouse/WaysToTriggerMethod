@@ -282,6 +282,7 @@
 				DEVELOPMENT_TEAM = 2JBA92AKK9;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WaysToTriggerMethod/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Trigger;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
@@ -310,6 +311,7 @@
 				DEVELOPMENT_TEAM = 2JBA92AKK9;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WaysToTriggerMethod/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Trigger;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
