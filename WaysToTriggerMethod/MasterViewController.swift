@@ -7,7 +7,13 @@
 
 import UIKit
 
+protocol ColorChangeDelegate: AnyObject {
+    func backgroundColorChange(color: UIColor)
+}
+
 class MasterViewController: UIViewController {
+    
+    weak var delegate: ColorChangeDelegate?
     
     private let buttonsStack: UIStackView = {
        let stack = UIStackView()
@@ -23,10 +29,10 @@ class MasterViewController: UIViewController {
         button.layer.cornerRadius = 12
         button.setTitleColor(.yellow, for: .normal)
         button.titleLabel?.font = .boldSystemFont(ofSize: 30)
-        button.setTitle("?? Blue", for: .normal)
+        button.setTitle("Blue", for: .normal)
         button.backgroundColor = .darkGray
         button.translatesAutoresizingMaskIntoConstraints = false
-//        button.addTarget(self, action: #selector(goBackWithDelegate), for: .touchUpInside)
+        button.addTarget(self, action: #selector(goBackWithDelegate), for: .touchUpInside)
         return button
     }()
     
@@ -35,7 +41,7 @@ class MasterViewController: UIViewController {
         button.layer.cornerRadius = 12
         button.setTitleColor(.yellow, for: .normal)
         button.titleLabel?.font = .boldSystemFont(ofSize: 30)
-        button.setTitle("Delegate Green", for: .normal)
+        button.setTitle("Green", for: .normal)
         button.backgroundColor = .darkGray
         button.translatesAutoresizingMaskIntoConstraints = false
 //        button.addTarget(self, action: #selector(goToSecondVC1), for: .touchUpInside)
@@ -47,7 +53,7 @@ class MasterViewController: UIViewController {
         button.layer.cornerRadius = 12
         button.setTitleColor(.yellow, for: .normal)
         button.titleLabel?.font = .boldSystemFont(ofSize: 30)
-        button.setTitle("Notification", for: .normal)
+        button.setTitle("Yellow", for: .normal)
         button.backgroundColor = .darkGray
         button.translatesAutoresizingMaskIntoConstraints = false
 //        button.addTarget(self, action: #selector(goToSecondVC2), for: .touchUpInside)
@@ -59,7 +65,7 @@ class MasterViewController: UIViewController {
         button.layer.cornerRadius = 12
         button.setTitleColor(.yellow, for: .normal)
         button.titleLabel?.font = .boldSystemFont(ofSize: 30)
-        button.setTitle("Closure", for: .normal)
+        button.setTitle("Red", for: .normal)
         button.backgroundColor = .darkGray
         button.translatesAutoresizingMaskIntoConstraints = false
 //        button.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
@@ -70,6 +76,11 @@ class MasterViewController: UIViewController {
         super.viewDidLoad()
         setLayout()
         setConstraints()
+    }
+    
+    @objc func goBackWithDelegate() {
+        delegate?.backgroundColorChange(color: .blue)
+        dismiss(animated: true)
     }
     
 }

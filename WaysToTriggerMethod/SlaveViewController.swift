@@ -30,6 +30,7 @@ class SlaveViewController: UIViewController {
     @objc func buttonPressed(_ sender: UIButton) {
         let vc = MasterViewController()
         vc.modalPresentationStyle = .fullScreen
+        vc.delegate = self
         self.present(vc, animated: true, completion: nil)
     }
 }
@@ -48,5 +49,11 @@ extension SlaveViewController {
             chooseColorButton.widthAnchor.constraint(equalToConstant: view.frame.width * 2/3),
             chooseColorButton.heightAnchor.constraint(equalToConstant: view.frame.width * 1/10)
         ])
+    }
+}
+
+extension SlaveViewController: ColorChangeDelegate {
+    func backgroundColorChange(color: UIColor) {
+        view.backgroundColor = color
     }
 }
