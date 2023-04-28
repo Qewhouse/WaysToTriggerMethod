@@ -7,8 +7,8 @@
 
 import UIKit
 
-class FirstViewController: UIViewController {
-
+class MasterViewController: UIViewController {
+    
     private let buttonsStack: UIStackView = {
        let stack = UIStackView()
         stack.axis = .vertical
@@ -18,15 +18,27 @@ class FirstViewController: UIViewController {
         return stack
     }()
     
+    lazy var backButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.layer.cornerRadius = 12
+        button.setTitleColor(.yellow, for: .normal)
+        button.titleLabel?.font = .boldSystemFont(ofSize: 30)
+        button.setTitle("?? Blue", for: .normal)
+        button.backgroundColor = .darkGray
+        button.translatesAutoresizingMaskIntoConstraints = false
+//        button.addTarget(self, action: #selector(goBackWithDelegate), for: .touchUpInside)
+        return button
+    }()
+    
     lazy var backButton1: UIButton = {
         let button = UIButton(type: .system)
         button.layer.cornerRadius = 12
         button.setTitleColor(.yellow, for: .normal)
         button.titleLabel?.font = .boldSystemFont(ofSize: 30)
-        button.setTitle("Delegate", for: .normal)
+        button.setTitle("Delegate Green", for: .normal)
         button.backgroundColor = .darkGray
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.addTarget(self, action: #selector(goToSecondVC1), for: .touchUpInside)
+//        button.addTarget(self, action: #selector(goToSecondVC1), for: .touchUpInside)
         return button
     }()
     
@@ -38,7 +50,7 @@ class FirstViewController: UIViewController {
         button.setTitle("Notification", for: .normal)
         button.backgroundColor = .darkGray
         button.translatesAutoresizingMaskIntoConstraints = false
-//        button.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
+//        button.addTarget(self, action: #selector(goToSecondVC2), for: .touchUpInside)
         return button
     }()
     
@@ -47,65 +59,38 @@ class FirstViewController: UIViewController {
         button.layer.cornerRadius = 12
         button.setTitleColor(.yellow, for: .normal)
         button.titleLabel?.font = .boldSystemFont(ofSize: 30)
-        button.setTitle("Назад", for: .normal)
+        button.setTitle("Closure", for: .normal)
         button.backgroundColor = .darkGray
         button.translatesAutoresizingMaskIntoConstraints = false
 //        button.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
         return button
     }()
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setLayout()
         setConstraints()
     }
-
-
-    
-    
-    
-    @objc private func goToSecondVC1() {
-        print("Rules")
-        let vc = SecondViewController()
-        navigationController?.pushViewController(vc, animated: true)
-    }
-    
-    @objc private func goToSecondVC2() {
-        print("Rules")
-        let vc = SecondViewController()
-        navigationController?.pushViewController(vc, animated: true)
-    }
-    
-    @objc private func goToSecondVC3() {
-        print("Rules")
-        let vc = SecondViewController()
-        navigationController?.pushViewController(vc, animated: true)
-    }
     
 }
 
-extension FirstViewController {
+extension MasterViewController {
     private func setLayout() {
         view.backgroundColor = .cyan
         view.addSubview(buttonsStack)
+        buttonsStack.addArrangedSubview(backButton)
         buttonsStack.addArrangedSubview(backButton1)
         buttonsStack.addArrangedSubview(backButton2)
         buttonsStack.addArrangedSubview(backButton3)
     }
 }
 
-extension FirstViewController {
+extension MasterViewController {
     private func setConstraints() {
         NSLayoutConstraint.activate([
             buttonsStack.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             buttonsStack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             buttonsStack.widthAnchor.constraint(equalToConstant: view.frame.width * 2/3)
-        
-        
-        
-        
         ])
     }
 }
