@@ -17,13 +17,6 @@ class SlaveViewController: UIViewController {
         NotificationCenter.default.removeObserver(self)
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setLayout()
-        setConstraints()
-        createObserver()
-    }
-    
     lazy var chooseColorButton: UIButton = {
         let button = UIButton(type: .system)
         button.layer.cornerRadius = 12
@@ -36,6 +29,13 @@ class SlaveViewController: UIViewController {
         return button
     }()
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setLayout()
+        setConstraints()
+        createObserver()
+    }
+    
     func createObserver() {
         NotificationCenter.default.addObserver(self, selector: #selector(SlaveViewController.changeBackgroundColor(notification:)), name: greenColor, object: nil)
     }
@@ -47,7 +47,13 @@ class SlaveViewController: UIViewController {
     @objc func buttonPressed(_ sender: UIButton) {
         let vc = MasterViewController()
         vc.modalPresentationStyle = .fullScreen
+        // for delegate
         vc.delegate = self
+        // for closure
+        vc.completion = { [weak self] color in
+            guard let self = self else { return }
+            view.backgroundColor = color
+        }
         self.present(vc, animated: true, completion: nil)
     }
 }
@@ -72,5 +78,11 @@ extension SlaveViewController {
 extension SlaveViewController: ColorChangeDelegate {
     func backgroundColorChange(color: UIColor) {
         view.backgroundColor = color
+    }
+}
+
+extension SlaveViewController: ColorChangeResponder {
+    func changeToYellow(_sender: MasterViewController) {
+        view.backgroundColor = .yellow
     }
 }

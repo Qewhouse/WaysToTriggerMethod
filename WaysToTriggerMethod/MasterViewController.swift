@@ -11,9 +11,15 @@ protocol ColorChangeDelegate: AnyObject {
     func backgroundColorChange(color: UIColor)
 }
 
+@objc protocol ColorChangeResponder: AnyObject {
+    func changeToYellow(_sender: MasterViewController)
+}
+
 class MasterViewController: UIViewController {
     
     weak var delegate: ColorChangeDelegate?
+    
+    var completion: ((UIColor?) -> ())?
     
     private let buttonsStack: UIStackView = {
        let stack = UIStackView()
@@ -28,8 +34,8 @@ class MasterViewController: UIViewController {
         let button = UIButton(type: .system)
         button.layer.cornerRadius = 12
         button.setTitleColor(.yellow, for: .normal)
-        button.titleLabel?.font = .boldSystemFont(ofSize: 30)
-        button.setTitle("Blue", for: .normal)
+        button.titleLabel?.font = .boldSystemFont(ofSize: 20)
+        button.setTitle("Blue Delegate", for: .normal)
         button.backgroundColor = .darkGray
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(goBackWithDelegate), for: .touchUpInside)
@@ -40,8 +46,8 @@ class MasterViewController: UIViewController {
         let button = UIButton(type: .system)
         button.layer.cornerRadius = 12
         button.setTitleColor(.yellow, for: .normal)
-        button.titleLabel?.font = .boldSystemFont(ofSize: 30)
-        button.setTitle("Green", for: .normal)
+        button.titleLabel?.font = .boldSystemFont(ofSize: 20)
+        button.setTitle("Green Notification", for: .normal)
         button.backgroundColor = .darkGray
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(goBackWithNotification), for: .touchUpInside)
@@ -52,11 +58,11 @@ class MasterViewController: UIViewController {
         let button = UIButton(type: .system)
         button.layer.cornerRadius = 12
         button.setTitleColor(.yellow, for: .normal)
-        button.titleLabel?.font = .boldSystemFont(ofSize: 30)
-        button.setTitle("Yellow", for: .normal)
+        button.titleLabel?.font = .boldSystemFont(ofSize: 20)
+        button.setTitle("Yellow Responder Chain", for: .normal)
         button.backgroundColor = .darkGray
         button.translatesAutoresizingMaskIntoConstraints = false
-//        button.addTarget(self, action: #selector(goToSecondVC2), for: .touchUpInside)
+        button.addTarget(nil, action: #selector(goBackWithResponder), for: .touchUpInside)
         return button
     }()
     
@@ -64,11 +70,11 @@ class MasterViewController: UIViewController {
         let button = UIButton(type: .system)
         button.layer.cornerRadius = 12
         button.setTitleColor(.yellow, for: .normal)
-        button.titleLabel?.font = .boldSystemFont(ofSize: 30)
-        button.setTitle("Red", for: .normal)
+        button.titleLabel?.font = .boldSystemFont(ofSize: 20)
+        button.setTitle("Red Closure", for: .normal)
         button.backgroundColor = .darkGray
         button.translatesAutoresizingMaskIntoConstraints = false
-//        button.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
+        button.addTarget(self, action: #selector(goBackWithClosure), for: .touchUpInside)
         return button
     }()
     
@@ -85,6 +91,16 @@ class MasterViewController: UIViewController {
     
     @objc func goBackWithNotification() {
         NotificationCenter.default.post(name: Notification.Name(rawValue: backgroundColorNotificationKey), object: nil)
+        dismiss(animated: true)
+    }
+    
+    @objc func goBackWithResponder(_sender: UIButton) {
+        UIApplication.shared.sendAction(#selector(ColorChangeResponder.changeToYellow(_sender:)), to: nil, from: self, for: nil)
+        dismiss(animated: true)
+    }
+    
+    @objc func goBackWithClosure(_sender: UIButton) {
+        completion?(.red)
         dismiss(animated: true)
     }
     
@@ -110,4 +126,3 @@ extension MasterViewController {
         ])
     }
 }
-
