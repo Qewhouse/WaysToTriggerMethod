@@ -7,3 +7,4 @@ Data is passing via:
 3. ResponderChain
 4. Closure
 
+![](https://github.com/Qewhouse/WaysToTriggerMethod/blob/main/AppShow.gif)
