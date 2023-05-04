@@ -1,7 +1,7 @@
 # Trigger
-Tiny app showing four different ways to pass data between classes.
+## Tiny app showing four different ways to pass data between classes.
 
-Data is passing via:
+Data is passing through:
 1. Delegate
 2. NotificationCenter
 3. ResponderChain
